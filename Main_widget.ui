@@ -37,24 +37,6 @@
 QLabel {
 	color: rgb(255, 255, 255);
 }
-QLineEdit {
-	color: rgb(0, 0, 0);
-	background-color: rgb(222, 222, 222);
-	border: 2px solid;
-	border-radius: 6px;
-	border-color: rgba(0, 0, 0, 0);
-	padding-left: 10px;
-	padding-right: 10px;
-	lineedit-password-mask-delay: 1000;
-}
-QLineEdit:hover {
-	background-color: rgb(200, 200, 200);
-	border-color: rgb(116, 116, 116);
-}
-QLineEdit:focus {
-	background-color: rgb(240, 240, 240);
-	border-color: rgb(138, 21, 211);
-}
 QPushButton {
 	color: rgb(255, 255, 255);
 	background-color: rgb(0, 116, 228);
@@ -264,6 +246,7 @@ QLineEdit:focus {
     <font>
      <family>Segoe UI</family>
      <pointsize>9</pointsize>
+     <stylestrategy>PreferDefault</stylestrategy>
     </font>
    </property>
    <property name="styleSheet">

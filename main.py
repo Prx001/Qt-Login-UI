@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtCore import Qt, QEvent, QPoint, QPropertyAnimation, QParallelAnimationGroup
+from PyQt5.QtCore import Qt, QEvent, QPoint, QPropertyAnimation, QParallelAnimationGroup, QSettings, QBasicTimer
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit
 from PyQt5.QtGui import QColor
 
@@ -43,11 +43,46 @@ class Form(QMainWindow, Ui_Form):
 		                                    front_arc_color=QColor(255, 255, 255))
 		self.loading_widget.move(185, 392)
 		self.loading_widget.hide()
+
+		self.settings = QSettings("Parsa.py", "Qt-Login-UI")
+		if self.settings.contains("username") and self.settings.contains("password"):
+			self.username_line_edit.setText(self.settings.value("username"))
+			self.password_line_edit.setText(self.settings.value("password"))
+			self.username_label_anims.start()
+			self.password_label_anims.start()
+			self.checkBox.setChecked(True)
+			self.seconds = 10
+			self.log_in_button.setText(f"Login ({self.seconds})")
+			self.timer = QBasicTimer()
+			self.username_line_edit.textEdited.connect(self.timer.stop)
+			self.username_line_edit.textEdited.connect(lambda: self.log_in_button.setText("Login"))
+			self.password_line_edit.textEdited.connect(self.timer.stop)
+			self.password_line_edit.textEdited.connect(lambda: self.log_in_button.setText("Login"))
+			self.timer.start(1000, self)
 		self.show()
 
+	def timerEvent(self, timer_event):
+		if self.seconds > 0:
+			self.seconds -= 1
+			self.log_in_button.setText(f"Login ({self.seconds})")
+		elif self.seconds == 0:
+			self.login()
+			self.timer.stop()
+		return super().timerEvent(timer_event)
+
 	def login(self):
+		try:
+			self.timer.stop()
+		except AttributeError:
+			pass
 		self.log_in_button.setText("")
 		self.loading_widget.show()
+
+		if self.checkBox.isChecked():
+			self.settings.setValue("username", self.username_line_edit.text())
+			self.settings.setValue("password", self.password_line_edit.text())
+		elif not self.checkBox.isChecked():
+			self.settings.clear()
 
 	def define_animations(self):
 		self.username_label_anim = QPropertyAnimation(self.username_label, b"pos")

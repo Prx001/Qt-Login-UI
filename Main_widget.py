@@ -27,24 +27,6 @@ class Ui_Form(object):
 "QLabel {\n"
 "    color: rgb(255, 255, 255);\n"
 "}\n"
-"QLineEdit {\n"
-"    color: rgb(0, 0, 0);\n"
-"    background-color: rgb(222, 222, 222);\n"
-"    border: 2px solid;\n"
-"    border-radius: 6px;\n"
-"    border-color: rgba(0, 0, 0, 0);\n"
-"    padding-left: 10px;\n"
-"    padding-right: 10px;\n"
-"    lineedit-password-mask-delay: 1000;\n"
-"}\n"
-"QLineEdit:hover {\n"
-"    background-color: rgb(200, 200, 200);\n"
-"    border-color: rgb(116, 116, 116);\n"
-"}\n"
-"QLineEdit:focus {\n"
-"    background-color: rgb(240, 240, 240);\n"
-"    border-color: rgb(138, 21, 211);\n"
-"}\n"
 "QPushButton {\n"
 "    color: rgb(255, 255, 255);\n"
 "    background-color: rgb(0, 116, 228);\n"
@@ -155,6 +137,7 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setFamily("Segoe UI")
         font.setPointSize(9)
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
         self.checkBox.setFont(font)
         self.checkBox.setStyleSheet("QCheckBox {\n"
 "    color: rgb(255, 255, 255);\n"
